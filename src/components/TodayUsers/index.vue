@@ -1,12 +1,12 @@
 <template>
   <div>
-    <common-card title="今日交易用户数" value="32,451">
+    <common-card title="今日交易用户数" :value="orderUser">
       <template>
-        <v-chart :option="getOptions()" />
+        <v-chart :options="getOptions()" />
       </template>
       <template v-slot:footer>
         <span>退货率 </span>
-        <span class="emphasis">5.64%</span>
+        <span class="emphasis">{{ returnRate }}</span>
       </template>
     </common-card>
   </div>
@@ -14,10 +14,11 @@
 
 <script>
 import commonCardMixin from "../../mixin/commonCardMixin";
+import commonDataMixin from "../../mixin/commonDataMixin";
 
 export default {
   name: "TodayUsers",
-  mixins: [commonCardMixin],
+  mixins: [commonCardMixin, commonDataMixin],
 
   data() {
     return {};
@@ -32,23 +33,7 @@ export default {
         xAxis: {
           type: "category",
           show: false,
-          data: [
-            "00:00",
-            "01:00",
-            "02:00",
-            "03:00",
-            "04:00",
-            "05:00",
-            "06:00",
-            "07:00",
-            "08:00",
-            "09:00",
-            "10:00",
-            "00:00",
-            "11:00",
-            "12:00",
-            "13:00",
-          ],
+          data: this.orderUserTrendAxis,
         },
         yAxis: {
           show: false,
@@ -57,10 +42,7 @@ export default {
           {
             type: "bar",
             barWidth: "60%",
-            data: [
-              410, 82, 200, 334, 390, 330, 220, 150, 82, 200, 134, 290, 330,
-              150,
-            ],
+            data: this.orderUserTrend,
           },
         ],
         tooltip: {},
@@ -76,5 +58,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

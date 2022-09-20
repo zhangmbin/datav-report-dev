@@ -4,8 +4,10 @@ import router from "./router";
 import "./plugins/element.js";
 import "./plugins/vcharts.js";
 import "./style/index.css";
+import './mock/mockServer'
 
-import * as echarts from "echarts";
+
+import  echarts from "echarts";
 import VueEcharts from "vue-echarts";
 
 import "default-passive-events";

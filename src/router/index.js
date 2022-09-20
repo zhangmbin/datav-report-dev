@@ -11,11 +11,7 @@ const routes = [
     name: "home",
     component: Home,
   },
-  // {
-  //   path: "/bmap",
-  //   name: "Bmap",
-  //   component: BMap,
-  // },
+
 ];
 
 const router = new VueRouter({

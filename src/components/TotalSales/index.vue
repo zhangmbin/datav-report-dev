@@ -1,16 +1,16 @@
 <template>
   <div class="total-sales">
-    <common-card title="累计销售额" value="123456">
+    <common-card title="累计销售额" :value="salesToday">
       <template>
-        <div class="compare-wapper">
+        <div class="compare-wrapper">
           <div class="compare">
             <span>日同比</span>
-            <span class="emphasis">7.33%</span>
+            <span class="emphasis">{{ salesGrowthLastDay }}</span>
             <div class="increase"></div>
           </div>
           <div class="compare">
             <span>月同比</span>
-            <span class="emphasis">37.33%</span>
+            <span class="emphasis">{{ salesGrowthLastMonth }}</span>
             <div class="decrease"></div>
           </div>
         </div>
@@ -19,29 +19,24 @@
       <!-- 传给footer插槽 -->
       <template v-slot:footer>
         <span>昨日销售额 </span>
-        <span class="emphasis">￥ 30,000,000</span>
+        <span class="emphasis">{{ salesLastDay }}</span>
+        <!-- <div>getReportData:{{ reportData }}</div> -->
       </template>
-    </common-card>
+    </common-card> 
   </div>
 </template>
 
 <script>
-import CommonCard from "../CommonCard";
+import commonCardMixin from "../../mixin/commonCardMixin";
+import commonDataMixin from "../../mixin/commonDataMixin";
 export default {
   name: "TotalSales",
-  components: { CommonCard },
-  data() {
-    return {};
-  },
-
-  mounted() {},
-
-  methods: {},
+  mixins: [commonCardMixin, commonDataMixin],
 };
 </script>
 
 <style lang="scss" scoped>
-.compare-wapper {
+.compare-wrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -53,7 +48,6 @@ export default {
     // background: rgb(239, 157, 157);
     margin-top: 3px;
     color: #666;
-    
   }
 }
 </style>

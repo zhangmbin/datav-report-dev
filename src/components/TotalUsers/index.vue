@@ -1,17 +1,17 @@
 <template>
   <div>
-    <common-card title="累计用户数" value="1,038,753">
+    <common-card title="累计用户数" :value="userToday">
       <template>
-        <v-chart :option="getOptions()" />
+        <v-chart :options="getOptions()" />
       </template>
 
       <template v-slot:footer>
         <div class="user-footer">
           <span>日同比</span>
-          <span class="emphasis">3.154%</span>
+          <span class="emphasis">{{ userGrowthLastDay }}</span>
           <div class="increase"></div>
           <span class="month">月同比</span>
-          <span class="emphasis">31.54%</span>
+          <span class="emphasis">{{ userGrowthLastMonth }}</span>
           <div class="decrease"></div>
         </div>
       </template>
@@ -21,10 +21,11 @@
 
 <script>
 import commonCardMixin from "../../mixin/commonCardMixin";
+import commonDataMixin from "../../mixin/commonDataMixin";
 
 export default {
   name: "TotalUsers",
-  mixins: [commonCardMixin],
+  mixins: [commonCardMixin, commonDataMixin],
 
   data() {
     return {};
@@ -39,9 +40,9 @@ export default {
         xAxis: {
           type: "value",
           show: false,
-          max: function (value) {
-            return value.max;
-          },
+          // max: function (value) {
+          //   return value.max;
+          // },
         },
         yAxis: {
           type: "category",
@@ -53,7 +54,7 @@ export default {
             // barGap: "-100%",
             stack: "总量",
             type: "bar",
-            data: [200],
+            data: [this.userLastMonth],
             barWidth: 10,
             itemStyle: {
               color: "#45c946",
@@ -63,14 +64,14 @@ export default {
             // barGap: "-100%",
             stack: "总量",
             type: "bar",
-            data: [500],
+            data: [this.userTodayNumber],
             itemStyle: {
               color: "#eee",
             },
           },
           {
             type: "custom",
-            data: [200],
+            data: [this.userLastMonth],
             stack: "总量",
             renderItem: (params, api) => {
               const value = api.value(0);
